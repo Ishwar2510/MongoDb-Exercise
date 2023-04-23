@@ -26,7 +26,9 @@ const restaurantSchema = new mongoose.Schema({
   
 const Restaurant = mongoose.model('Restaurant', restaurantSchema);
 console.clear()
-
+for( let i=0;i<15;i++){
+    console.log()
+}
 // Mongo Db exercise
 // ex 1 - query to display all doc in restaurant
     //     async function ex1(){
@@ -226,6 +228,446 @@ console.clear()
     //     console.log(d.length)
     // }
     // ex19()
+// ex 20 -restaurants which achieved a score which is not more than 10.
+    //  async function ex20(){
+    //     let r = await Restaurant.find({"grades.score":{$not:{$gt:10}}},{_id:0,"grades.score":1})
+    //     console.log(r.length)
+    //  }
+    //  ex20()
+
+//ex 21 restaurants which prepared dish except 'American' and 
+// 'Chinees' or restaurant's name begins with letter 'Wil'
+    //  async function ex21(){
+    //     let r = await Restaurant.find({$or:[
+    //         {cuisine:{$nin:["American ","Chinese"]}},
+    //         {name:/^wil/i}
+    //     ]},{_id:0,cuisine:1,name:1})
+    //     console.log(r.length)
+    //  }
+
+    //  // or 
+    //  let d = await Restaurant.find(
+    //     {$or: [
+    //       {name: /^Wil/}, 
+    //       {"$and": [
+    //            {"cuisine" : {$ne :"American "}}, 
+    //            {"cuisine" : {$ne :"Chinese"}}
+    //        ]}
+    //     ]}
+    //     ,{"restaurant_id" : 1,"name":1,"borough":1,"cuisine" :1}
+    //     );
+    //  console.log(d.length)
+    //  ex21()
+    
+//ex 22-which achieved a grade of "A" and scored 11 on an ISODate "2014-08-11T00:00:00Z"
+
+// ###################################################not done
+    // async function ex22(){
+    //     const isoDate = new Date("2014-08-11T00:00:00Z");
+    //     let r = await Restaurant.find(
+    //         { 
+    //             grades: { 
+    //                 $elemMatch: { 
+    //                     date: isoDate, 
+    //                     grade: "A", 
+    //                     score: 11 
+    //                 } 
+    //             } 
+    //         },
+    //         { _id: 0, restaurant_id: 1, name: 1, grades: 1 }
+    //     );
+    //     console.log(r)
+    // }
+    // ex22()
+
+//ex 23 restaurants where 2nd element of coord array contains a 
+// value which is more than 42 and upto 52
+    // async function ex23(){
+    //     let r= await Restaurant.find({"address.coord.1":{$gt:42,$lte:52}},{_id:0,})
+    //     console.log(r.length)
+    // }
+    // ex23()
+
+
+// ex 25 arrange the name of the restaurants in ascending order along with all the columns
+    // async function ex25(){
+    //     let r= await Restaurant.find({}).sort({name:1})
+    //     let d = await Restaurant.find().sort({"name":-1})
+    //     console.log(r.length)
+    // }
+    // ex25()
+
+//ex 27 -arranged the name of the cuisine in ascending order and for that same 
+// cuisine borough should be in descending order
+    // async function ex27(){
+    //     let r= await Restaurant.find({},{_id:0,cuisine:1,borough:1}).sort({cuisine:1,borough:-1}).limit(100)
+       
+    //     console.log(r)
+    // }
+    // ex27()
+
+
+//ex 28  whether all the addresses contains the street or not.
+    // async function ex28(){
+    //     let r = await Restaurant.find({"address.street" : {$exists:true}})
+    //     console.log(r.length)
+    // }
+    // ex28()
+
+//ex 29 where the coord field value is Double
+    // async function ex29(){
+    //     let r = await Restaurant.find({"address.coord":{$size:2}})
+    //     console.log(r.length)
+    // }
+    // ex29()
+
+//ex 30 Restaurants which returns 0 as a remainder after dividing the score by 7
+    // async function ex30(){
+    //     let r = await Restaurant.find({})
+    //     console.log(r.length)
+    // }
+    // ex30()
+
+//ex 31 restaurants which contains 'mon' as three letters somewhere in its name.
+    // async function ex31(){
+    //     let r = await Restaurant.find({name:/.*mon.*/i},{name:1,_id:0})
+    //     console.log(r)
+    // }
+    // ex31()
+
+// ex 32 restaurants which contain 'Mad' as first three letters of its name
+    // async function ex32(){
+    //     let r = await Restaurant.find({name:/^MaD/i},{name:1,_id:0})
+    //     console.log(r)
+    // }
+    // ex32()
+
+//ex 33 restaurants that have at least one grade with a score of less than 5
+    // async function ex33(){
+    //     let r = await Restaurant.find({"grades.score":{$lt:5}},{_id:0,"grades.score":1})
+    //     console.log(r.toString())
+    // }
+    // ex33()
+// ex 34 restaurants that have all grade with a score of less than 5
+    // async function ex34(){
+    //     let r = await Restaurant.find({"grades.score":{$not :{$gte:5}}},{_id:0,"grades.score":1})
+    //     let d = await Restaurant.find({ grades: { $not: { $elemMatch: { score: { $gte: 5 } } } } }, { name: 1, _id: 0 });
+    //     console.log(r.length,d.length)
+    // }
+    // ex34()
+
+// ex 35  restaurants that have all grades with a score greater than 5. 
+    // async function ex35(){
+    //    //  d and e are same they does the query for nay one condition
+    //     let d = await Restaurant.find({"grades.score":{$gt:5}},{_id:0,"grades.score":1})
+    //     let e = await Restaurant.find({"grades":{$elemMatch:{score:{$gt:5}}}})
+    //     console.log(d.length)
+    //     console.log(e.length)
+
+    //     // solution for this question is this one 
+    //     // always rememebr elemMatch taken in an object
+    //     let f = await Restaurant.find({"grades":{$not:{$elemMatch:{score:{$gt:5}}}}})
+    //     console.log(f.length)
+        
+       
+    // }
+    // ex35()
+
+//ex 36 find the average score for each restaurant
+
+    //    async function ex36(){
+    //     let  r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$group: {
+    //           _id:"$name",
+    //           avgScore:{$avg:"$grades.score"}
+    //         }}
+    //     ])
+    //     console.log(r);
+    //    }
+    //    ex36()
+
+//ex 37 find the highest score for each restaurant.
+
+    // async function ex37(){
+    //     let r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$group:{
+    //             _id:"$name",
+    //             highestScore:{
+    //                 $max:"$grades.score"
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r);
+    // }
+    // ex37()
+
+//ex 38 -find the lowest score for each restaurant
+    //  async function ex38(){
+    //     let r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$group:{
+    //             _id:"$name",
+    //             minScore:{
+    //                 $min:"$grades.score"
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r)
+    //  }
+    //  ex38()
+
+// ex 39  find the count of restaurants in each borough
+    // async function ex39(){
+    //     let r = await Restaurant.aggregate([
+    //         {$group:{
+    //             _id:"$borough",
+    //             count:{
+    //                 $sum:1
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r)
+    // }
+    // ex39()
+
+// ex 40 find the count of restaurants for each cuisine
+
+    // async function ex40(){
+    //     let r = await Restaurant.aggregate([
+    //         {$group:{
+    //             _id:"$cuisine",
+    //             resttoThatmakesit:{
+    //                 $sum:1
+    //             }
+
+    //         }}
+    //     ])
+    //     console.log(r)
+    // }
+
+    // ex40()
+
+//ex 41 find the count of restaurants for each cuisine and borough
+    //  async function ex41(){
+    //     let r = await Restaurant.aggregate([
+    //         {$group:{
+    //             _id:{
+    //                 cuisine:"$cuisine",
+    //                 borough:"$borough"
+    //             },
+    //             count:{
+    //                 $sum :1
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r)
+    //  }
+    //  ex41()
+
+//ex 42 Count of restaurants that received a grade of 'A' for each cuisine
+    // async function ex42(){
+    //     let r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$match:{
+    //             "grades.grade":"A"
+    //         }},
+    //         {$group:{
+    //             _id:"$cuisine",
+    //             count:{
+    //                 $sum:1
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r)
+    // }
+    // ex42()
+
+//ex 43 count of restaurants that received a grade of 'A' for each borough
+    // async function ex43(){
+    //     let r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$match:{"grades.grade":"A"}},
+    //         {$group:{
+    //             _id:"$borough",
+    //             count:{
+    //                 $sum:1
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r)
+    // }
+    // ex43()
+
+// ex 44 count of restaurants that received a grade of 'A' for each cuisine and borough.
+    //  async function ex44(){
+    //     let  r= await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$match:{
+    //             "grades.grade":"A"
+    //         }},
+    //         {$group:{
+    //             _id:{
+    //                 cuisine:"$cuisine",
+    //                 borough:"$borough"
+    //             },
+    //             count:{
+    //                 $sum:1
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r.length)
+
+    //     let d= await Restaurant.aggregate([
+    //         {
+    //           $match: { "grades.grade": "A" }
+    //         },
+    //         {
+    //           $group: {
+    //             _id: { cuisine: "$cuisine", borough: "$borough" },
+    //       count: { $sum: 1 }
+    //           }
+    //         },
+            
+    //       ]);
+    //       console.log(d.length)
+    //  }
+    //  ex44()
+
+// ex 45 find the average score for each cuisine.
+    // async function ex45(){
+    //     let r = await Restaurant.aggregate([
+    //         {
+    //             $unwind: "$grades"
+    //           },
+    //         {$group:{
+    //             _id:"$cuisine",
+    //             avgScore:{
+    //                 $avg:"$grades.score"
+    //             }
+    //         }}
+    //     ])
+    //     console.log(r)
+
+      
+    // }
+    // ex45()
+ 
+//ex 46 find the restaurants achieved highest average score
+
+    // async function ex46(){
+    //     let r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$group:{
+    //             _id:"$restaurant_id",
+    //             AvgScore:{
+    //                 $avg:"$grades.score"
+    //             }
+    //         }},
+    //         {$sort:{
+    //             AvgScore:-1
+    //         }},
+    //         {$limit:1},
+            
+    //     ])
+    //     console.log(r)
+    // }
+    // ex46()
+
+// ex 47 find all the restaurants with the highest number of "A" grades.
+    // async function ex47(){
+    //     let r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$match:{"grades.grade":"A"}},
+    //         {$group:{
+    //             _id:"$restaurant_id",
+    //             count:{
+    //                 $sum:1
+    //             }
+    //         }},
+    //         {$sort:{
+    //             count:-1
+    //         }},
+    //         {$group:{
+    //             _id:"$count",
+    //             totalRestro:{
+    //                 $sum:1
+    //             }
+    //         }},
+    //         {$sort:{
+    //             _id:-1
+    //         }}
+
+    //     ])
+    //     console.log(r)
+    // }
+    // ex47()
+
+
+// ex 48 restaurant that has the highest average score for thecuisine "Turkish".
+    // async function ex48(){
+    //     let r = await Restaurant.aggregate([
+    //         {$match:{
+    //             "cuisine":"Turkish"
+    //         }},
+    //         {$unwind:"$grades"},
+    //         {$group:{
+    //             _id:"$name",
+    //             AvgScore:{
+    //                 $avg:"$grades.score"
+    //             }
+    //         }},
+    //         {$sort:{
+    //             AvgScore:-1
+    //         }}
+    //     ])
+    //     console.log(r)
+    // }
+    // ex48()
+
+
+
+// ex 49 restaurants that achieved the highest total score
+
+    // async function ex49(){
+    //     let r = await Restaurant.aggregate([
+    //         {$unwind:"$grades"},
+    //         {$group:{
+    //             _id:"$name",
+    //             TotalScore:{
+    //                 $sum : "$grades.score"
+    //             }
+    //         }},
+    //         {$sort:{
+    //             TotalScore:-1
+    //         }},
+    //         {$group:{
+    //             _id:"$TotalScore",
+    //             // count:{
+    //             //     $sum:1
+    //             // }
+    //             restro :{$push :"$_id"}
+    //         }},
+    //         {$sort:{
+    //             _id:-1
+    //         }},
+    //         {$limit:1}
+            
+    //     ])
+    //     console.log(r);
+    // }
+    // ex49()
+
+
+// ex 50 find the top 5 restaurants with the highest average score 
+// for each cuisine type, along with their average scores.
+
+async function ex50(){
+    
+}
+ex50()
+
 
 
 
